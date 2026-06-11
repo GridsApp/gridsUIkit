@@ -9,7 +9,7 @@
                 <span
                     class="placeholder-class ml-2 mr-1  flex items-center ">{{ $info['prefix'] }}</span>
             @endisset
-            <input wire:model="value" type="number" class="twa-form-input ">
+            <input wire:model="value" type="number" step="{{ $info['step'] ?? 'any' }}" class="twa-form-input ">
         </div>
     </div>
 
