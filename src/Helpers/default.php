@@ -178,7 +178,7 @@ function apply_condition(&$rows, $condition)
 function get_assets()
 {
     return collect(json_decode(file_get_contents(__DIR__ . '/../../dist/.vite/manifest.json'), true))->map(function ($item) {
-        return "vendor/twa/uikit/dist/" . $item['file'];
+        return "vendor/grids/uikit/dist/" . $item['file'];
     })->values()->toArray();
 }
 
