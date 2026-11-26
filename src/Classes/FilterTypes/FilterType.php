@@ -101,9 +101,7 @@ class FilterType
                 break;
             
             default:
-            // dd($table,$filter['column']);
-
-                $column = $table['name'].".".$filter['column'];
+                $column = $filter['column'];
                 $this->filter($rows, $filter_value['option'], $column, $value1 , $value2);
 
                 break;
