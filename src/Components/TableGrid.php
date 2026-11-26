@@ -88,7 +88,7 @@ class TableGrid extends Component
                 'placeholder' => $filter['label'],
                 'name' => $filter['name'],
                 'multiple' => $filter['multiple'] ?? false,
-                'visible_selections' => 3,
+                'visible_selections' => 1,
                 'query_limit' => 50,
 
             ];
