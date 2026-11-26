@@ -11,7 +11,7 @@ class Select extends FilterType
 
     public function handle(&$rows , &$joins , $columns ,$table ,  $filter , $filter_value){
 
-        $column = "$table.".$filter['foreign_key'];
+        $column = $table['name'].".".$filter['foreign_key'];
         $value1 = $filter_value['value1'];
 
         if (is_array($value1)) {
