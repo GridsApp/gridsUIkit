@@ -129,10 +129,12 @@ class TableGrid extends Component
             $enabled = $enabled == "true" || $enabled == "1" ? true : false;
 
 
+            $defaultValue1 = ($filter['multiple'] ?? false) ? [] : null;
+
             $this->filter[$filter['name']] = [
                 'enabled' => $enabled,
                 'option' => $this->filter[$filter['name']]['option'] ?? $default_option,
-                'value1' => $this->filter[$filter['name']]['value1'] ?? null,
+                'value1' => $this->filter[$filter['name']]['value1'] ?? $defaultValue1,
                 'value2' => $this->filter[$filter['name']]['value2'] ?? null
             ];
 
@@ -140,7 +142,7 @@ class TableGrid extends Component
             $this->emptyFilter[$filter['name']] = [
                 'enabled' => false,
                 'option' => $default_option,
-                'value1' =>  null,
+                'value1' =>  $defaultValue1,
                 'value2' =>  null
             ];
 
