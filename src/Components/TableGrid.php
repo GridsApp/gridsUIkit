@@ -185,7 +185,9 @@ class TableGrid extends Component
                 $filter['value1'] = null;
             }
 
-            $filter['value1'] = (string) $filter['value1'];
+            if (!is_array($filter['value1'])) {
+                $filter['value1'] = (string) $filter['value1'];
+            }
 
             try {
                 (new ($current_filter['type']))->handle($rows, $joins, $this->columns, $this->table, $current_filter, $filter);
