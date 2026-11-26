@@ -47,7 +47,7 @@ class FilterType
 
             case 'manyToMany':
          
-                $column = "$table.".$filter['foreign_key'];
+                $column = $table['name'].".".$filter['foreign_key'];
 
                 $temp_rows =  DB::table($filter['table']);
 
@@ -93,7 +93,7 @@ class FilterType
             
                 $column = $filter['table'].".".$filter['column'];
 
-                $joins[] = [$filter['table'],  "$table." . $filter['foreign_key'],  $filter['table'] . ".id"];
+                $joins[] = [$filter['table'],  $table['name'] . "." . $filter['foreign_key'],  $filter['table'] . ".id"];
 
 
                 $this->filter($rows, $filter_value['option'], $column, $value1 , $value2);
@@ -103,7 +103,7 @@ class FilterType
             default:
             // dd($table,$filter['column']);
 
-                $column = "$table.".$filter['column'];
+                $column = $table['name'].".".$filter['column'];
                 $this->filter($rows, $filter_value['option'], $column, $value1 , $value2);
 
                 break;
