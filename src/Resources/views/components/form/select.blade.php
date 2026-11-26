@@ -16,32 +16,42 @@ x-data="Functions.initSelect({{ $info['visible_selections'] ?? 5 }}, '{{ $info['
         <div class="twa-select-container-inner">
             <div @click="openOptions()" class="twa-select-selections-container"
                 :class="open ? 'twa-select-selections-container-opened' : ''">
-                <template x-if="selectedOptions || (Array.isArray(selectedOptions) && selectedOptions.length > 0)">
-                    <template x-for="selectedOption in visibleOptions" :key="selectedOption.value">
-                        @if ($info['multiple'])
-                            <span class="twa-select-selection-box">
-                        @endif
-                        <span class="selected-class" x-text="selectedOption.label"></span>
-                        @if ($info['multiple'])
-                            <button class="w-[20px] pointer-events-auto" @click="handleClearSelection($event, selectedOption.identifier)"
-                                type="button" role="button">
-                                @include('UIKitView::components.icons.cross')
-                            </button>
-                            </span>
-                        @endif
+                @if (!empty($info['compact_multiple']) && !empty($info['multiple']))
+                    {{-- Compact mode: show "N selected" on a single line (used in filter panels) --}}
+                    <template x-if="Array.isArray(selectedOptions) && selectedOptions.length > 0">
+                        <span class="selected-class" x-text="`${selectedOptions.length} selected`"></span>
                     </template>
-                </template>
-                <template
-                    x-if="selectedOptions == null || !(Array.isArray(selectedOptions) && selectedOptions.length > 0)">
-                    <span class="placeholder-class">{{ $info['placeholder'] }}</span>
-                </template>
-                <template x-if="hiddenOptions.length > 0">
-                    <span class="twa-select-selection-box">
-                        <button @click="showMoreHandler(event)" type="button" class="text-blue-500">
-                            <span x-text="showMore ? 'Show Less' : `+${hiddenOptions.length} more`"></span>
-                        </button>
-                    </span>
-                </template>
+                    <template x-if="!Array.isArray(selectedOptions) || selectedOptions.length === 0">
+                        <span class="placeholder-class">{{ $info['placeholder'] }}</span>
+                    </template>
+                @else
+                    <template x-if="selectedOptions || (Array.isArray(selectedOptions) && selectedOptions.length > 0)">
+                        <template x-for="selectedOption in visibleOptions" :key="selectedOption.value">
+                            @if ($info['multiple'])
+                                <span class="twa-select-selection-box">
+                            @endif
+                            <span class="selected-class" x-text="selectedOption.label"></span>
+                            @if ($info['multiple'])
+                                <button class="w-[20px] pointer-events-auto" @click="handleClearSelection($event, selectedOption.identifier)"
+                                    type="button" role="button">
+                                    @include('UIKitView::components.icons.cross')
+                                </button>
+                                </span>
+                            @endif
+                        </template>
+                    </template>
+                    <template
+                        x-if="selectedOptions == null || !(Array.isArray(selectedOptions) && selectedOptions.length > 0)">
+                        <span class="placeholder-class">{{ $info['placeholder'] }}</span>
+                    </template>
+                    <template x-if="hiddenOptions.length > 0">
+                        <span class="twa-select-selection-box">
+                            <button @click="showMoreHandler(event)" type="button" class="text-blue-500">
+                                <span x-text="showMore ? 'Show Less' : `+${hiddenOptions.length} more`"></span>
+                            </button>
+                        </span>
+                    </template>
+                @endif
                 <div class="twa-select-actions ">
                     <div @click="handleClear(event)" class="h-full w-[18px]  items-center flex justify-center">
                         <button type="button" role="button" class="twa-select-selections-remove w-[20px] h-[20px]"
